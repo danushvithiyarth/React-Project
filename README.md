@@ -94,10 +94,11 @@ The application source code was referenced from:
 
 --- 
 
-##📝 Activity Logs & Screenshots
+## 📝 Activity Logs & Screenshots
 
-All project steps, Jenkins builds, AWS EC2 setup, Docker Hub images, and monitoring dashboards are documented in the dev branch.
-These screenshots provide a visual reference of the pipeline execution and the deployed application.
+- All project files, configurations, and deployment scripts are stored in the `dev` branch.  
+- Screenshots documenting each step — including Jenkins builds, Docker image creation, application deployment, and monitoring dashboards — are stored in the `main` branch.  
+- These screenshots provide a visual reference of the full CI/CD pipeline execution and the deployed React application.
 
 ---
 
