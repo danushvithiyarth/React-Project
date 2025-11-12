@@ -1,131 +1,123 @@
-# React-Application DevOps Project 
+# React-Application DevOps Project
 
-## Overview
+## 🚀 Project Overview
+This project demonstrates a complete **DevOps pipeline** for a React web application, covering:
 
-This project is a complete DevOps pipeline implementation, covering application deployment, containerization, CI/CD automation, and monitoring using open-source tools. The goal is to deploy a web application, automate the build and deployment process, and set up a monitoring system to ensure application health.
+- Application deployment on AWS EC2
+- Containerization using Docker and Docker Compose
+- Continuous Integration & Deployment (CI/CD) automation with Jenkins
+- Monitoring and alerting for application health
+- Branch-based Docker image deployments for dev and production environments
 
-## Technologies Used
+The project ensures a **scalable, automated, and maintainable DevOps workflow** for front-end applications.
 
-Application: Deployed on port 800
+The application source code was referenced from:  
+[devops-build](https://github.com/sriram-R-krishnan/devops-build.git)
 
-Docker: Containerized the application using a Dockerfile
+---
 
-Docker Compose: Manages the application’s containers
+## 🧩 Key Highlights
 
-Bash Scripting: Automates build and deployment processes
+| Feature | Description |
+|---------|-------------|
+| **Application Deployment** | Hosted on AWS EC2 instance, accessible via port 800 |
+| **Containerization** | Dockerfile for single-container deployment, managed via Docker Compose |
+| **CI/CD Pipeline** | Jenkins automates build, push, and deployment processes |
+| **Branch-Based Deployment** | `dev` branch → Docker image pushed to public repo; `main` branch → Docker image pushed to production repo |
+| **Monitoring & Alerts** | Open-source monitoring setup integrated to track uptime and health |
+| **Security** | AWS Security Groups restrict access to authorized IPs; DockerHub credentials securely managed via Jenkins |
 
-Git & GitHub: Version control with a structured branching strategy
+---
 
-Jenkins: Automates the CI/CD pipeline
-
-Docker Hub: Hosts images for different environments (public & private repos)
-
-AWS EC2: Hosts the deployed application
-
-Security Groups: Restricts access to authorized IPs
-
-Monitoring: Ensures application uptime and health status
-
-## Project Setup & Execution
+## 🏗️ Architecture & Workflow
 
 ### 1. Application Deployment
-
-The application code was refered from:
-
-git clone https://github.com/sriram-R-krishnan/devops-build.git
-
-Run the application on port 800
+- Deployed React application on **port 800** of an AWS EC2 instance.
+- Configured Security Groups for:
+  - Application access: Open for all users
+  - Server login: Restricted to your public IP
 
 ### 2. Containerization
-
-Create a Dockerfile to containerize the application
-
-Write a docker-compose.yml file to manage multi-container setups
+- Created **Dockerfile** for containerizing the application.
+- Docker Compose manages multi-container setups (if needed for additional services).
 
 ### 3. Automation with Bash Scripts
+- `build.sh` → Builds Docker image locally.
+- `deploy.sh` → Deploys the image to the EC2 instance automatically.
 
-build.sh: Builds the Docker image
+### 4. CI/CD Pipeline (Jenkins)
+- Configured Jenkins to:
+  - Trigger builds automatically on `dev` and `main` branches.
+  - Build, scan, and push Docker images to Docker Hub.
+  - Deploy the application automatically to the server.
+- Branch-specific DockerHub repositories:
+  - `dev` branch → public repo
+  - `main` branch → production repo
 
-deploy.sh: Deploys the image to the server
+### 5. Monitoring & Alerts
+- Integrated a monitoring system to track:
+  - Application uptime
+  - Resource utilization
+- Configured alert notifications for any downtime or failures.
 
-### 4. CI/CD with Jenkins
+---
 
-Configured Jenkins to:
+## 📊 Tools & Technologies
 
-Build, push, and deploy images automatically
+| Category | Tools & Services |
+|----------|-----------------|
+| Application | React.js, Node.js |
+| Containerization | Docker, Docker Compose |
+| CI/CD | Jenkins, Bash Scripts |
+| Version Control | Git & GitHub |
+| Hosting | AWS EC2, Security Groups |
+| Monitoring | Open-source monitoring tools |
+| Container Registry | Docker Hub |
 
-Trigger builds on dev and master branches
+---
 
-Push to dev (public) and prod (private) Docker Hub repos
+## 🛠️ Step-by-Step Execution
 
-### 5. AWS Setup & Security
+1. Clone the source code repository:
+   ```bash
+   git clone https://github.com/sriram-R-krishnan/devops-build.git
 
-Launched a t2.micro EC2 instance
+2. Build Docker image:
+   ./build.sh
 
-Configured Security Groups:
+3. Deploy Docker container:
+   ./deploy.sh
 
-Application Access: Open for all users
+4. Jenkins triggers automatic CI/CD pipelines on dev or main branches.
+   
+5. Monitor application health using the integrated monitoring system.
 
-Server Login: Restricted to my public IP only
+--- 
 
-### 6. Monitoring & Alerts
+##📝 Activity Logs & Screenshots
 
-Integrated an open-source monitoring system to track the application health
+All project steps, Jenkins builds, AWS EC2 setup, Docker Hub images, and monitoring dashboards are documented in the dev branch.
+These screenshots provide a visual reference of the pipeline execution and the deployed application.
 
-Configured notifications to alert in case of downtime
+---
 
-## Activity Log
+##🎯 Outcome
 
-Throughout this project, I documented each step with screenshots to showcase the process, including:
+Fully automated CI/CD pipeline for a React application.
+Branch-based deployment strategy for dev and production environments.
+Containerized deployment with Docker and Docker Compose.
+Integrated monitoring and alerting system to ensure application uptime.
 
-Jenkins configuration & build steps
+---
 
-AWS EC2 setup & security group configurations
+##💡 Notes
 
-Docker Hub repositories with image tags
+Branches:
+main → Contains production-ready configuration and deployment scripts
+dev → Contains configuration files and activity logs
+SonarQube code quality checks can be optionally configured as part of CI/CD.
 
-Deployed application page
+---
 
-Monitoring dashboard with health status
-
-These images provide a detailed view of the entire pipeline and the automation processes implemented.
-
-This project demonstrates a fully automated CI/CD pipeline, security best practices, and monitoring implementation, ensuring a scalable and maintainable DevOps workflow.
-
-## Troubleshooting:
-During the development of this project, several errors and challenges arose. The following points may be helpful for others facing similar issues:
-
-Handling Prebuilt Artifacts:
-This project was unique because the source code repository already contained the build artifacts along with the source code. As a result, rebuilding the application was unnecessary. Instead, moving the artifact to the Nginx directory (/usr/share/nginx/html/) was sufficient to start the application.
-
-
-Managing Storage Issues:
-A common mistake, which I believe many encounter, is creating an instance with insufficient storage. This often leads to storage-related errors midway through the project. To avoid this:
-Plan in advance by considering all the software you intend to install and allocate sufficient storage accordingly.
-Use the command " docker image prune -f " to remove unused Docker images.
-If necessary, delete stopped containers to free up space. With the help of an AI tool, I found the following useful command:
-" sh 'docker ps -aq | xargs -r docker rm -f' "
-This command removes all stopped containers, helping reclaim storage space.
-
-
-Branch-Based Docker Image Deployment:
-One requirement of this project was to ensure that:
-When code is pushed to the dev branch, a Docker image is built and pushed to the dev repository on Docker Hub.
-When dev is merged into master, the Docker image is pushed to the production repository on Docker Hub.
-Initially, I attempted to use the condition "env.BRANCH == 'origin/dev'" in the Jenkins pipeline, but it did not work as expected. After debugging, I found that "env.GIT_BRANCH == 'origin/dev'" was the correct approach for handling Git branches in Jenkins.
-
-
-Securely Managing DockerHub Credentials:
-Since the project required pushing Docker images to Docker Hub, authentication was necessary. Initially, I stored the DockerHub password directly in the Jenkinsfile, which was insecure—especially since the project repository was public. To solve this, I utilized Jenkins credentials to securely store and use the DockerHub password without exposing it in the repository.
-
-
-Throughout the project, I encountered a few other minor issues, but they were not significant enough to document here.
-
-## Optional Configuration:
-If you need SonarQube code quality check you can use the SonarQube analysis stage and setup/configure SonarQube in the server. 
-
-## Note
-This repository contains two branches "main" & "dev", main branch contains the project commands and configuration and dev branch conntains the configuration files.
-
-## Contributors
-- Danush Vithiyarth Jaiganesh - DevOps Engineer
+## 👤 Contributors
+**Danush Vithiyarth Jaiganesh** – DevOps Engineer 
